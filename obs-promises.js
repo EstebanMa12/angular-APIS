@@ -39,10 +39,10 @@ const doSomething$ = () => {
   /**
    * Uses the `pipe` operator to apply a series of operators to the observable.
    * The `pipe` operator allows for a more declarative and composable way of manipulating observables.
-   * 
+   *
    * The `subscribe` method is then used to subscribe to the observable and receive the emitted values.
    * Subscribing to an observable is necessary in order to start receiving values from it.
-   * 
+   *
    * @example
    * obs$.pipe(
    *   map(value => value * 2),
@@ -52,7 +52,7 @@ const doSomething$ = () => {
    *   error => console.error(error),
    *   () => console.log('Complete')
    * );
-   * 
+   *
    * @param {Function} next - A function that handles the next value emitted by the observable.
    * @param {Function} [error] - A function that handles any error that occurs during the observable execution.
    * @param {Function} [complete] - A function that handles the completion of the observable.
