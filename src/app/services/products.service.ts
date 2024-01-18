@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 
 import { CreateProductDTO, Product } from './../models/product.model';
-import { retry } from 'rxjs/operators';
-import { pipe } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { pipe, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,18 @@ export class ProductsService {
   }
 
   get(id: string) {
-    return this.http.get<Product>(`${this.apiUrl}/${id}`);
+    return this.http.get<Product>(`${this.apiUrl}/${id}`)
+    .pipe(
+      catchError((err: HttpErrorResponse) => {
+        if (err.status === 404) {
+          return throwError(()=>'Product not found');
+        }
+        if(err.status === 500){
+          return throwError(()=>'Server error');
+        }
+        return throwError(()=>'Unknown error');
+      })
+    )
   }
 
   create(data: CreateProductDTO){
