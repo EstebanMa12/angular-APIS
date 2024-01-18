@@ -40,4 +40,13 @@ export class ProductsComponent implements OnInit {
     this.showProductDetail = !this.showProductDetail;
   }
 
+  onShowDetail(id: string){
+    this.toggleProductDetail();
+    this.productsService.getProduct(id)
+    .subscribe(data => {
+      console.log(data);
+
+    });
+  }
+
 }
