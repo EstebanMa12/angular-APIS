@@ -77,4 +77,18 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  updateProduct(){
+    const changes: Partial<CreateProductDTO> = {
+      title: 'Producto actualizado',
+    }
+    const id = this.productChosen.id;
+    this.productsService.update(id, changes)
+    .subscribe(data => {
+      // console.log('Updated',data);
+      const index = this.products.findIndex(item => item.id === id);
+      this.products[index] = data;
+      this.productChosen = data;
+    });
+  }
+
 }
