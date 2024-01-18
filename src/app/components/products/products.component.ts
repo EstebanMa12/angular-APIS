@@ -57,6 +57,8 @@ export class ProductsComponent implements OnInit {
     .subscribe(data => {
       // this.toggleProductDetail();
       this.productChosen = data;
+      console.log(this.productChosen);
+
     });
   }
 

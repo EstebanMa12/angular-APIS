@@ -15,7 +15,13 @@
       ></app-img>
       <h2>{{ productChosen.price | currency : "COP" }}</h2>
       <p>{{ productChosen.title }}</p>
-      
+      <swiper
+        [slidesPerView]="1"
+        >
+        <ng-template swiperSlide *ngFor="let image of productChosen.images">
+          <app-img [img]="image"/>
+        </ng-template>
+      </swiper>
       <button (click)="onAddToShoppingCart(productChosen)">Add cart</button>
     </div>
   </div>
