@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Product } from '../../models/product.model';
+import { CreateProductDTO, Product } from '../../models/product.model';
 
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
@@ -62,8 +62,19 @@ export class ProductsComponent implements OnInit {
     });
   }
   createNewProduct(){
-    
-    this.productsService.create()
+    const product: CreateProductDTO = {
+      title: 'Producto nuevo',
+      price: 100,
+      images: ['https://i.picsum.photos/id/237/200/300.jpg', 'https://i.picsum.photos/id/237/200/300.jpg'],
+      description: 'Descripción del producto',
+      categoryId: 1
+    }
+
+    this.productsService.create(product)
+    .subscribe(data => {
+      // console.log('Created',data);
+      this.products.unshift(data);
+    });
   }
 
 }
