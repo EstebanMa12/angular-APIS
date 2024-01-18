@@ -5,6 +5,7 @@ import { CreateProductDTO, Product } from '../../models/product.model';
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
 import Swal from 'sweetalert2';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -74,6 +75,22 @@ export class ProductsComponent implements OnInit {
         }
       }
     );
+  }
+
+  readAndUpdate(id: string){
+    this.productsService.get(id)
+    .pipe(
+      switchMap(product => {
+        const changes: Partial<CreateProductDTO> = {
+          title: 'Producto actualizado',
+        }
+        return this.productsService.update(id, changes);
+      }
+    ))
+    .subscribe(data => {
+      console.log('Read',data);
+    });
+
   }
 
   createNewProduct(){
