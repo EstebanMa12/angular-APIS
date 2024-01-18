@@ -36,7 +36,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productsService.getAllProducts()
+    this.productsService.getAll()
     .subscribe(data => {
       this.products = data;
     });
@@ -53,13 +53,17 @@ export class ProductsComponent implements OnInit {
 
   onShowDetail(id: string){
     this.toggleProductDetail();
-    this.productsService.getProduct(id)
+    this.productsService.get(id)
     .subscribe(data => {
       // this.toggleProductDetail();
       this.productChosen = data;
       console.log(this.productChosen);
 
     });
+  }
+  createNewProduct(){
+    
+    this.productsService.create()
   }
 
 }

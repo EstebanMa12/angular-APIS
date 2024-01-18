@@ -14,11 +14,15 @@ export class ProductsService {
     private http: HttpClient
   ) { }
 
-  getAllProducts() {
+  getAll() {
     return this.http.get<Product[]>(this.apiUrl);
   }
 
-  getProduct(id: string) {
+  get(id: string) {
     return this.http.get<Product>(`${this.apiUrl}/${id}`);
+  }
+
+  create(data: Product){
+    return this.http.post<Product>(this.apiUrl, data);
   }
 }
