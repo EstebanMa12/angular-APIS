@@ -5,6 +5,7 @@ import { CreateProductDTO, Product } from '../../models/product.model';
 import { StoreService } from '../../services/store.service';
 import { ProductsService } from '../../services/products.service';
 
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -28,6 +29,9 @@ export class ProductsComponent implements OnInit {
     description: ''
   }
 
+  limit = 10;
+  offset = 0;
+
   constructor(
     private storeService: StoreService,
     private productsService: ProductsService
@@ -36,10 +40,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productsService.getAll()
-    .subscribe(data => {
-      this.products = data;
-    });
+    this.loadData()
   }
 
   onAddToShoppingCart(product: Product) {
@@ -99,6 +100,13 @@ export class ProductsComponent implements OnInit {
       const index = this.products.findIndex(item => item.id === id);
       this.products.splice(index, 1);
       this.toggleProductDetail();
+    });
+  }
+  loadData(){
+    this.productsService.getByPage(this.limit, this.offset)
+    .subscribe(data => {
+      this.products = this.products.concat(data);
+      this.offset += this.limit;
     });
   }
 

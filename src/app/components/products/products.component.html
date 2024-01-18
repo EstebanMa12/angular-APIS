@@ -6,6 +6,7 @@
     (addedProduct)="onAddToShoppingCart($event)"
     (showProduct)="onShowDetail($event)"
   ></app-product>
+  <button (click)="loadData()">Load More</button>
   <div class="product-detail" [class.active]="showProductDetail">
     <div *ngIf="productChosen">
       <button (click)="toggleProductDetail()">Close</button>
@@ -28,3 +29,5 @@
     </div>
   </div>
 </div>
+<!-- next page -->
+
