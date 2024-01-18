@@ -91,4 +91,15 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  deleteProduct(){
+    const id = this.productChosen.id;
+    this.productsService.delete(id)
+    .subscribe(data => {
+      // console.log('Deleted',data);
+      const index = this.products.findIndex(item => item.id === id);
+      this.products.splice(index, 1);
+      this.toggleProductDetail();
+    });
+  }
+
 }
